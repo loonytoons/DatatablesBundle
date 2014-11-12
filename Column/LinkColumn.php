@@ -50,6 +50,13 @@ class LinkColumn extends BaseColumn
     private $attributes;
 
     /**
+     * If data is blank then use the data from this alternative column
+     *
+     * @var false|string
+     */
+    private $fallbackTextColumn;
+
+    /**
      * {@inheritdoc}
      */
     public function getClassName()
@@ -76,6 +83,9 @@ class LinkColumn extends BaseColumn
         if (array_key_exists('attributes', $options)) {
             $this->setAttributes($options['attributes']);
         }
+        if (array_key_exists('fallbackTextColumn', $options)) {
+            $this->setFallbackTextColumn($options['fallbackTextColumn']);
+        }
     }
 
     /**
@@ -92,6 +102,8 @@ class LinkColumn extends BaseColumn
         $this->setRouteParameters(array());
         $this->setRouteStaticParameters(array());
         $this->setAttributes(array());
+
+        $this->setFallbackTextColumn(false);
     }
 
     /**
@@ -188,5 +200,29 @@ class LinkColumn extends BaseColumn
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Set alternative data column.
+     *
+     * @param array $fallbackTextColumn
+     *
+     * @return $this
+     */
+    public function setFallbackTextColumn($fallbackTextColumn)
+    {
+        $this->fallbackTextColumn = $fallbackTextColumn;
+
+        return $this;
+    }
+
+    /**
+     * Get fallbackTextColumn.
+     *
+     * @return array
+     */
+    public function getFallbackTextColumn()
+    {
+        return $this->fallbackTextColumn;
     }
 }

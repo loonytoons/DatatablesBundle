@@ -6,6 +6,13 @@
         var routeParameters  = new Array();
         var attributes = "";
 
+        var linkText = data;
+        if ((typeof data == 'undefined')
+            && (typeof full.{{ column.fallbackTextColumn }} != 'undefined')
+        ) {
+            linkText = full.{{ column.fallbackTextColumn }};
+        }
+
         {% for key, value in column.routeParameters %}
             {# for association links, check the parent element exists in the data #}
             {% if '.' in value %}
@@ -30,7 +37,7 @@
         url += 'href="' + route + '" ';
         url += attributes + ">";
 
-        url += data;
+        url += linkText;
 
         url += "</a>";
 
